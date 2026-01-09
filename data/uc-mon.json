@@ -4,7 +4,7 @@
       "id": 3,
       "domain": "poc.un1tycyb3r.com",
       "createdAt": "2026-01-08T21:31:49.577Z",
-      "lastScan": "2026-01-08T22:15:25.631Z"
+      "lastScan": "2026-01-09T18:55:20.699Z"
     }
   },
   "scans": [
@@ -87,6 +87,22 @@
       "timestamp": "2026-01-08T22:15:25.631Z",
       "scriptCount": 2,
       "totalSize": 37
+    },
+    {
+      "id": 14,
+      "targetId": 3,
+      "url": "https://poc.un1tycyb3r.com",
+      "timestamp": "2026-01-09T18:53:31.011Z",
+      "scriptCount": 0,
+      "totalSize": 0
+    },
+    {
+      "id": 15,
+      "targetId": 3,
+      "url": "https://poc.un1tycyb3r.com",
+      "timestamp": "2026-01-09T18:55:20.699Z",
+      "scriptCount": 2,
+      "totalSize": 37
     }
   ],
   "scripts": {
@@ -98,7 +114,7 @@
       "identifier": "https://poc.un1tycyb3r.com/index.js",
       "baseName": "index.js",
       "firstSeen": "2026-01-08T21:33:05.130Z",
-      "lastSeen": "2026-01-08T22:15:25.632Z"
+      "lastSeen": "2026-01-09T18:55:20.702Z"
     },
     "3:https://poc.un1tycyb3r.com/main.js": {
       "id": 69,
@@ -108,7 +124,7 @@
       "identifier": "https://poc.un1tycyb3r.com/main.js",
       "baseName": "main.js",
       "firstSeen": "2026-01-08T22:15:25.632Z",
-      "lastSeen": "2026-01-08T22:15:25.632Z"
+      "lastSeen": "2026-01-09T18:55:20.704Z"
     }
   },
   "scriptVersions": {
@@ -203,7 +219,7 @@
   },
   "nextId": {
     "target": 4,
-    "scan": 14,
+    "scan": 16,
     "script": 70,
     "version": 99
   }

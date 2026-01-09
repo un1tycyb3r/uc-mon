@@ -16,19 +16,83 @@ cd uc-mon
 npm install
 ```
 
+### Ubuntu Server Setup
+
+For headless servers (droplets, VPS, etc.), install Chromium dependencies:
+
+```bash
+# Install Chromium and dependencies
+sudo apt-get update
+sudo apt-get install -y chromium-browser
+
+# Or install just the dependencies for Puppeteer's bundled Chrome
+sudo apt-get install -y \
+  ca-certificates \
+  fonts-liberation \
+  libasound2 \
+  libatk-bridge2.0-0 \
+  libatk1.0-0 \
+  libc6 \
+  libcairo2 \
+  libcups2 \
+  libdbus-1-3 \
+  libexpat1 \
+  libfontconfig1 \
+  libgbm1 \
+  libgcc1 \
+  libglib2.0-0 \
+  libgtk-3-0 \
+  libnspr4 \
+  libnss3 \
+  libpango-1.0-0 \
+  libpangocairo-1.0-0 \
+  libstdc++6 \
+  libx11-6 \
+  libx11-xcb1 \
+  libxcb1 \
+  libxcomposite1 \
+  libxcursor1 \
+  libxdamage1 \
+  libxext6 \
+  libxfixes3 \
+  libxi6 \
+  libxrandr2 \
+  libxrender1 \
+  libxss1 \
+  libxtst6 \
+  lsb-release \
+  wget \
+  xdg-utils
+```
+
+**Alternative: Use fetch mode** (no browser needed, but won't catch dynamically loaded scripts):
+
+```bash
+node src/cli.js scan target.com --mode fetch
+```
+
 ## Commands
 
 ### `scan` - One-time scan
 
 ```bash
-# Basic scan
+# Basic scan (uses Puppeteer/Chrome)
 node src/cli.js scan https://acrobat.adobe.com
+
+# Lightweight mode (no browser, works on any server)
+node src/cli.js scan target.com --mode fetch
+
+# Custom Chrome path (for servers with Chrome installed elsewhere)
+node src/cli.js scan target.com --chrome /usr/bin/chromium-browser
 
 # With options
 node src/cli.js scan target.com --timeout 60000 --wait 10000
 
 # JSON output
 node src/cli.js scan target.com --json > results.json
+
+# Disable Discord notifications
+node src/cli.js scan target.com --no-notify
 ```
 
 ### `monitor` - Continuous monitoring
@@ -39,6 +103,9 @@ node src/cli.js monitor https://target.com
 
 # Check every 30 minutes
 node src/cli.js monitor https://target.com --interval 30
+
+# Use fetch mode on servers
+node src/cli.js monitor target.com --mode fetch --interval 60
 ```
 
 ### `targets` - List scanned targets

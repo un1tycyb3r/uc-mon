@@ -35,18 +35,23 @@ program
   .option('-t, --timeout <ms>', 'Page load timeout in ms', '30000')
   .option('-w, --wait <ms>', 'Additional wait time for dynamic scripts', '5000')
   .option('--no-notify', 'Disable Discord notifications')
+  .option('--mode <mode>', 'Extraction mode: puppeteer (default) or fetch', 'puppeteer')
+  .option('--chrome <path>', 'Path to Chrome/Chromium executable')
   .action(async (url, options) => {
     if (!options.quiet && !options.json) {
       console.log(banner);
     }
 
-    const spinner = ora('Extracting JavaScript files...').start();
+    const modeLabel = options.mode === 'fetch' ? '(fetch mode)' : '(browser mode)';
+    const spinner = ora(`Extracting JavaScript files ${modeLabel}...`).start();
 
     try {
       const monitor = new UCMon({
         extractor: {
           timeout: parseInt(options.timeout),
-          waitForNetwork: parseInt(options.wait)
+          waitForNetwork: parseInt(options.wait),
+          mode: options.mode,
+          chromePath: options.chrome
         },
         notify: options.notify
       });
@@ -77,10 +82,13 @@ program
   .option('-t, --timeout <ms>', 'Page load timeout in ms', '30000')
   .option('-w, --wait <ms>', 'Additional wait time for dynamic scripts', '5000')
   .option('--no-notify', 'Disable Discord notifications')
+  .option('--mode <mode>', 'Extraction mode: puppeteer (default) or fetch', 'puppeteer')
+  .option('--chrome <path>', 'Path to Chrome/Chromium executable')
   .action(async (url, options) => {
     console.log(banner);
     console.log(chalk.cyan(`Starting continuous monitoring of ${url}`));
     console.log(chalk.gray(`Checking every ${options.interval} minutes`));
+    console.log(chalk.gray(`Mode: ${options.mode}`));
     console.log(chalk.gray(`Discord notifications: ${options.notify ? 'enabled' : 'disabled'}\n`));
 
     const intervalMs = parseInt(options.interval) * 60 * 1000;
@@ -92,7 +100,9 @@ program
         const monitor = new UCMon({
           extractor: {
             timeout: parseInt(options.timeout),
-            waitForNetwork: parseInt(options.wait)
+            waitForNetwork: parseInt(options.wait),
+            mode: options.mode,
+            chromePath: options.chrome
           },
           notify: options.notify
         });
